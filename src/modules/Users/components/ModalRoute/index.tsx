@@ -80,6 +80,7 @@ export function ModalRoute() {
 											totalPages: 0,
 											nextPage: null,
 										}}
+										isRoute
 									/>
 								)}
 							</div>

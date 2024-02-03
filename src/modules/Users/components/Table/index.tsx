@@ -2,7 +2,29 @@ import { Customer, Pagination } from '@/miscs/types';
 import { ModalCustomer, ModalDelete } from '..';
 import { useSearchParams } from 'react-router-dom';
 
-export function Table({ data, pagination }: Pagination<Customer>) {
+type Props = Pagination<Customer> & {
+	isRoute?: boolean;
+};
+
+function business() {
+	return (
+		<tr>
+			<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+				Empresa
+			</td>
+			<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+				empresa@gmail.com
+			</td>
+			<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+				Não informado
+			</td>
+			<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">0</td>
+			<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">0</td>
+		</tr>
+	);
+}
+
+export function Table({ data, pagination, isRoute }: Props) {
 	const [searchParams, setSeachParams] = useSearchParams();
 	const isSearch = !!searchParams.get('search')?.length;
 
@@ -50,15 +72,18 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 										>
 											Coordenada Y
 										</th>
-										<th
-											scope="col"
-											className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
-										>
-											Ações
-										</th>
+										{!isRoute && (
+											<th
+												scope="col"
+												className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
+											>
+												Ações
+											</th>
+										)}
 									</tr>
 								</thead>
 								<tbody className="divide-gray-200 table-row-group overflow-auto overflow-y-auto w-full">
+									{isRoute && business()}
 									{data.map((customer, index) => (
 										<tr key={index}>
 											<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
@@ -76,18 +101,21 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
 												{customer.coordinateY}
 											</td>
-											<td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-												<div className="flex flex-row justify-around">
-													<ModalCustomer id={customer.id} />
+											{!isRoute && (
+												<td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+													<div className="flex flex-row justify-around">
+														<ModalCustomer id={customer.id} />
 
-													<ModalDelete
-														customerName={customer.name}
-														customerId={customer.id}
-													/>
-												</div>
-											</td>
+														<ModalDelete
+															customerName={customer.name}
+															customerId={customer.id}
+														/>
+													</div>
+												</td>
+											)}
 										</tr>
 									))}
+									{isRoute && business()}
 								</tbody>
 							</table>
 
