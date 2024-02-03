@@ -1,7 +1,15 @@
 import { Customer, Pagination } from '@/miscs/types';
 import { ModalDelete } from '..';
+import { useSearchParams } from 'react-router-dom';
 
 export function Table({ data, pagination }: Pagination<Customer>) {
+	const [searchParams, setSeachParams] = useSearchParams();
+
+	function setPage(value: number) {
+		searchParams.set('page', value.toString());
+		setSeachParams(searchParams);
+	}
+
 	return (
 		<div className="flex flex-col items-end">
 			<div className="flex flex-col w-full">
@@ -79,6 +87,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 						<button
 							type="button"
 							className="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+							onClick={() => setPage(pagination.currentPage - 1)}
 						>
 							<svg
 								className="flex-shrink-0 w-3.5 h-3.5"
@@ -105,6 +114,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 							<button
 								type="button"
 								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+								onClick={() => setPage(pagination.currentPage - 2)}
 							>
 								{pagination.currentPage - 2}
 							</button>
@@ -114,6 +124,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 							<button
 								type="button"
 								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+								onClick={() => setPage(pagination.currentPage - 1)}
 							>
 								{pagination.currentPage - 1}
 							</button>
@@ -131,6 +142,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 							<button
 								type="button"
 								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+								onClick={() => setPage(pagination.currentPage + 1)}
 							>
 								{pagination.currentPage + 1}
 							</button>
@@ -140,6 +152,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 							<button
 								type="button"
 								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+								onClick={() => setPage(pagination.currentPage + 2)}
 							>
 								{pagination.currentPage + 2}
 							</button>
@@ -149,6 +162,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 						<button
 							type="button"
 							className="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+							onClick={() => setPage(pagination.currentPage + 1)}
 						>
 							<span aria-hidden="true" className="sr-only">
 								Next
