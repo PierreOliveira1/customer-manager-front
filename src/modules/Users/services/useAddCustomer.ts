@@ -19,6 +19,8 @@ export function useAddCustomer() {
 				body: JSON.stringify({
 					...data,
 					phoneNumber: unmaskPhoneNumber(data.phoneNumber) || null,
+					coordinateX: Number(data.coordinateX),
+					coordinateY: Number(data.coordinateY),
 				}),
 			}),
 			{

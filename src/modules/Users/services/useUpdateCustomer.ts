@@ -22,6 +22,8 @@ export function useUpdateCustomer() {
 					name: data.name,
 					email: data.email,
 					phoneNumber: unmaskPhoneNumber(data.phoneNumber ?? '') || null,
+					coordinateX: Number(data.coordinateX),
+					coordinateY: Number(data.coordinateY),
 				}),
 			}),
 			{
