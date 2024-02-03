@@ -1,9 +1,10 @@
 import { Customer, Pagination } from '@/miscs/types';
-import { ModalDelete } from '..';
+import { ModalCustomer, ModalDelete } from '..';
 import { useSearchParams } from 'react-router-dom';
 
 export function Table({ data, pagination }: Pagination<Customer>) {
 	const [searchParams, setSeachParams] = useSearchParams();
+	const isSearch = !!searchParams.get('search')?.length;
 
 	function setPage(value: number) {
 		searchParams.set('page', value.toString());
@@ -11,11 +12,11 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 	}
 
 	return (
-		<div className="flex flex-col items-end">
+		<div className="flex flex-col items-end flex-1">
 			<div className="flex flex-col w-full">
-				<div className="-m-1.5 overflow-x-auto">
+				<div className="-m-1.5 overflow-x-auto overflow-y-auto">
 					<div className="p-1.5 min-w-full inline-block align-middle">
-						<div className="overflow-hidden">
+						<div className="overflow-auto">
 							<table className="min-w-full divide-y divide-gray-200">
 								<thead>
 									<tr>
@@ -27,7 +28,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 										</th>
 										<th
 											scope="col"
-											className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+											className="px-6 py-3 text-start text-nowrap text-xs font-medium text-gray-500 uppercase"
 										>
 											E-mail
 										</th>
@@ -45,8 +46,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 										</th>
 									</tr>
 								</thead>
-								<tbody className="divide-y divide-gray-200">
-									{/* {data.length === 0} */}
+								<tbody className="divide-y divide-gray-200 overflow-auto flex-1">
 									{data.map((customer, index) => (
 										<tr key={index}>
 											<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
@@ -56,16 +56,11 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 												{customer.email}
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-												{customer.phoneNumber ?? '--'}
+												{customer.phoneNumber ?? 'Não informado'}
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
 												<div className="flex flex-row justify-around">
-													<button
-														type="button"
-														className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 p-1"
-													>
-														Editar
-													</button>
+													<ModalCustomer id={customer.id} />
 
 													<ModalDelete
 														customerName={customer.name}
@@ -77,6 +72,14 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 									))}
 								</tbody>
 							</table>
+
+							{data.length === 0 && (
+								<p className="text-center p-6 text-gray-600">
+									{isSearch
+										? 'Nenhum resultado encontrado.'
+										: 'Nenhum cliente cadastrado.'}
+								</p>
+							)}
 						</div>
 					</div>
 				</div>
@@ -111,15 +114,16 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 					)}
 
 					<div className="flex items-center gap-x-1">
-						{pagination.currentPage === pagination.totalPages && (
-							<button
-								type="button"
-								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-								onClick={() => setPage(pagination.currentPage - 2)}
-							>
-								{pagination.currentPage - 2}
-							</button>
-						)}
+						{pagination.currentPage === pagination.totalPages &&
+							pagination.currentPage - 2 > 0 && (
+								<button
+									type="button"
+									className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+									onClick={() => setPage(pagination.currentPage - 2)}
+								>
+									{pagination.currentPage - 2}
+								</button>
+							)}
 
 						{pagination.currentPage > 1 && (
 							<button
@@ -149,15 +153,16 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 							</button>
 						)}
 
-						{pagination.currentPage === 1 && (
-							<button
-								type="button"
-								className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-								onClick={() => setPage(pagination.currentPage + 2)}
-							>
-								{pagination.currentPage + 2}
-							</button>
-						)}
+						{pagination.currentPage === 1 &&
+							pagination.currentPage + 2 < pagination.totalPages && (
+								<button
+									type="button"
+									className="min-h-[38px] min-w-[38px] flex justify-center items-center border border-transparent text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+									onClick={() => setPage(pagination.currentPage + 2)}
+								>
+									{pagination.currentPage + 2}
+								</button>
+							)}
 					</div>
 					{pagination.currentPage < pagination.totalPages && (
 						<button
