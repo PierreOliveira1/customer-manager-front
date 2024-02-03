@@ -14,11 +14,11 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 	return (
 		<div className="flex flex-col items-end flex-1">
 			<div className="flex flex-col w-full">
-				<div className="-m-1.5 overflow-x-auto overflow-y-auto">
-					<div className="p-1.5 min-w-full inline-block align-middle">
-						<div className="overflow-auto">
+				<div className="-m-1.5">
+					<div className="p-1.5 min-w-full align-middle">
+						<div className="overflow-auto block max-h-full">
 							<table className="min-w-full divide-y divide-gray-200">
-								<thead>
+								<thead className="table-fixed w-full">
 									<tr>
 										<th
 											scope="col"
@@ -40,13 +40,25 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 										</th>
 										<th
 											scope="col"
+											className="px-6 py-3 text-start text-xs text-nowrap font-medium text-gray-500 uppercase"
+										>
+											Coordenada X
+										</th>
+										<th
+											scope="col"
+											className="px-6 py-3 text-start text-xs text-nowrap font-medium text-gray-500 uppercase"
+										>
+											Coordenada Y
+										</th>
+										<th
+											scope="col"
 											className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
 										>
 											Ações
 										</th>
 									</tr>
 								</thead>
-								<tbody className="divide-y divide-gray-200 overflow-auto flex-1">
+								<tbody className="divide-gray-200 table-row-group overflow-auto overflow-y-auto w-full">
 									{data.map((customer, index) => (
 										<tr key={index}>
 											<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
@@ -57,6 +69,12 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
 												{customer.phoneNumber ?? 'Não informado'}
+											</td>
+											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+												{customer.coordinateX}
+											</td>
+											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+												{customer.coordinateY}
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
 												<div className="flex flex-row justify-around">

@@ -32,7 +32,7 @@ export function ModalDelete(props: Props) {
 							dialog.current?.close();
 						}}
 					/>
-					<div className="z-10 mt-7 opacity-100 duration-500 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto flex items-center">
+					<div className="z-10 mt-7 opacity-100 duration-500 ease-out transition-all sm:max-w-lg w-full m-3 sm:mx-auto flex items-center">
 						<div className="w-full flex flex-col bg-white border shadow-sm rounded-xl">
 							<div className="flex justify-between items-center py-3 px-4 border-b">
 								<h3 className="font-bold text-gray-800">

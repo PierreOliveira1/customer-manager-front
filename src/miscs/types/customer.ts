@@ -3,4 +3,6 @@ export type Customer = {
 	name: string;
 	email: string;
 	phoneNumber: string;
+	coordinateX: number;
+	coordinateY: number;
 };

@@ -25,10 +25,10 @@ export function useUpdateCustomer() {
 				}),
 			}),
 			{
-				success: 'Cliente cadastrado com sucesso',
-				loading: 'Cadastrando cliente...',
+				success: 'Cliente atualizado com sucesso',
+				loading: 'Atualizando dados do cliente...',
 				error: (error: ApiError) =>
-					error.message || 'Erro ao cadastrar cliente',
+					error.message || 'Erro ao atualizar cliente',
 			}
 		);
 	}

@@ -38,6 +38,8 @@ export function ModalCustomer({ id }: Props) {
 				'phoneNumber',
 				maskPhoneNumber(findCustomer.data.phoneNumber ?? '', '')
 			);
+			setValue('coordinateX', findCustomer.data.coordinateX);
+			setValue('coordinateY', findCustomer.data.coordinateY);
 		}
 	}, [findCustomer.data, findCustomer.isSuccess, setValue]);
 
@@ -45,6 +47,8 @@ export function ModalCustomer({ id }: Props) {
 		setValue('email', '');
 		setValue('name', '');
 		setValue('phoneNumber', '');
+		setValue('coordinateX', 0);
+		setValue('coordinateY', 0);
 	}
 
 	function toggleModal() {
@@ -278,6 +282,90 @@ export function ModalCustomer({ id }: Props) {
 										{!!errors.phoneNumber?.message && (
 											<p className="text-sm text-red-600">
 												{errors.phoneNumber?.message}
+											</p>
+										)}
+									</div>
+
+									<div className="flex flex-col items-start">
+										<div className="flex items-start gap-0.5">
+											<label
+												htmlFor="input-label"
+												className="block text-sm font-medium mb-2"
+											>
+												Coordenada X
+											</label>
+											<span className="text-red-600">*</span>
+										</div>
+										<input
+											required
+											type="number"
+											id="input-label"
+											className={cn(
+												'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none',
+												{
+													'focus:border-blue-500 focus:ring-blue-500':
+														!errors.coordinateX?.message,
+													'focus:border-red-500 focus:ring-red-500':
+														!!errors.coordinateY?.message,
+												}
+											)}
+											placeholder="Nome do cliente..."
+											{...register('coordinateX', {
+												max: {
+													value: 100,
+													message: 'No máxmo 1000000',
+												},
+												min: {
+													value: 1,
+													message: 'No mínimo 1',
+												},
+											})}
+										/>
+										{!!errors.coordinateX?.message && (
+											<p className="text-sm text-red-600">
+												{errors.coordinateX?.message}
+											</p>
+										)}
+									</div>
+
+									<div className="flex flex-col items-start">
+										<div className="flex items-start gap-0.5">
+											<label
+												htmlFor="input-label"
+												className="block text-sm font-medium mb-2"
+											>
+												Coordenada Y
+											</label>
+											<span className="text-red-600">*</span>
+										</div>
+										<input
+											required
+											type="text"
+											id="input-label"
+											className={cn(
+												'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none',
+												{
+													'focus:border-blue-500 focus:ring-blue-500':
+														!errors.coordinateY?.message,
+													'focus:border-red-500 focus:ring-red-500':
+														!!errors.coordinateY?.message,
+												}
+											)}
+											placeholder="Nome do cliente..."
+											{...register('coordinateY', {
+												max: {
+													value: 100,
+													message: 'No máxmo 1000000',
+												},
+												min: {
+													value: 1,
+													message: 'No mínimo 1',
+												},
+											})}
+										/>
+										{!!errors.coordinateY?.message && (
+											<p className="text-sm text-red-600">
+												{errors.coordinateY?.message}
 											</p>
 										)}
 									</div>
