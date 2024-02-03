@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Users } from './Users';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <h1>Pierre</h1>,
+		element: <Users />,
 	},
 ]);
 
