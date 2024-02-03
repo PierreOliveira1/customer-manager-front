@@ -312,7 +312,7 @@ export function ModalCustomer({ id }: Props) {
 											placeholder="Nome do cliente..."
 											{...register('coordinateX', {
 												max: {
-													value: 100,
+													value: 1000000,
 													message: 'No máxmo 1000000',
 												},
 												min: {
@@ -354,7 +354,7 @@ export function ModalCustomer({ id }: Props) {
 											placeholder="Nome do cliente..."
 											{...register('coordinateY', {
 												max: {
-													value: 100,
+													value: 1000000,
 													message: 'No máxmo 1000000',
 												},
 												min: {
