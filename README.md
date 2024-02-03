@@ -1,3 +1,26 @@
+## Avisos
+Antes de iniciar a aplicação deve-se colocar a url da api na env assim como está no modelo `.env.example`.
+
+# Installation
+
+```bash
+$ pnpm install
+```
+
+## Running the app
+
+```bash
+# development
+$ pnpm run dev
+
+# build
+$ pnpm run build
+
+# preview
+$ pnpm run preview
+```
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
