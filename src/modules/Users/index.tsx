@@ -1,6 +1,6 @@
 import { Header } from '@/components/common';
 import { useUsers } from './services';
-import { Table } from './components';
+import { Search, Table } from './components';
 
 export default function Users() {
 	const customers = useUsers();
@@ -9,9 +9,11 @@ export default function Users() {
 		<>
 			<Header />
 
-			<h2 className="text-3xl p-6">Clientes</h2>
-
 			<div className="p-6">
+				<h2 className="text-2xl">Clientes</h2>
+
+				<Search />
+
 				{customers.isSuccess && (
 					<Table
 						data={customers.data.data}

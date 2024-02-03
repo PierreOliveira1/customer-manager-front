@@ -35,7 +35,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 											scope="col"
 											className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
 										>
-											Número
+											Telefone
 										</th>
 										<th
 											scope="col"
@@ -46,6 +46,7 @@ export function Table({ data, pagination }: Pagination<Customer>) {
 									</tr>
 								</thead>
 								<tbody className="divide-y divide-gray-200">
+									{/* {data.length === 0} */}
 									{data.map((customer, index) => (
 										<tr key={index}>
 											<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
